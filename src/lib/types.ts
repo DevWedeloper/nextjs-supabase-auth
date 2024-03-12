@@ -28,3 +28,16 @@ export const loginSchema = z.object({
 });
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
+
+export const signUpSchema = z
+  .object({
+    email: emailSchema,
+    password: passwordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords must match.',
+    path: ['confirmPassword'],
+  });
+
+export type TSignUpSchema = z.infer<typeof signUpSchema>;

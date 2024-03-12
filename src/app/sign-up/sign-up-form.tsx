@@ -4,27 +4,29 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { TLoginSchema, loginSchema } from '@/lib/types';
+import { TSignUpSchema, signUpSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-export default function LoginForm() {
-  const form = useForm<TLoginSchema>({
-    resolver: zodResolver(loginSchema),
+export default function SignUpForm() {
+  const form = useForm<TSignUpSchema>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
     mode: 'onChange',
   });
 
-  const onSubmit = (values: TLoginSchema) => {
+  const onSubmit = (values: TSignUpSchema) => {
     console.log(values);
   };
 
@@ -52,6 +54,28 @@ export default function LoginForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input type='password' placeholder='Password' {...field} />
+              </FormControl>
+              <FormDescription>
+                Password must be at least 8 characters and contain at least one
+                lowercase letter, one uppercase letter, one digit, and one
+                special character.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='confirmPassword'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  type='password'
+                  placeholder='Confirm Password'
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
