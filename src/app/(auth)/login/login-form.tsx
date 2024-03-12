@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { TLoginSchema, loginSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 export default function LoginForm() {
@@ -57,6 +58,9 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
+        <Button variant='link' asChild className='p-0'>
+          <Link href='/forgot-password'>Forgot Password?</Link>
+        </Button>
         <div className='flex justify-center'>
           <Button type='submit' disabled={!form.formState.isValid}>
             Submit
