@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { TSignUpSchema, signUpSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { signUp } from './action';
 
 export default function SignUpForm() {
   const form = useForm<TSignUpSchema>({
@@ -26,8 +27,16 @@ export default function SignUpForm() {
     mode: 'onChange',
   });
 
-  const onSubmit = (values: TSignUpSchema) => {
-    console.log(values);
+  const onSubmit = async (values: TSignUpSchema) => {
+    const { error } = await signUp(values);
+
+    if (error) {
+      console.log(error);
+    }
+    
+    if (!error) {
+      console.log('No error!');
+    }
   };
 
   return (
