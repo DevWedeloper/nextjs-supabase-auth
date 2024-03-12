@@ -47,3 +47,15 @@ export const forgotPasswordSchema = z.object({
 });
 
 export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
+
+export const resetPasswordSchema = z
+  .object({
+    password: passwordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords must match.',
+    path: ['confirmPassword'],
+  });
+
+export type TResetPasswordSchema = z.infer<typeof resetPasswordSchema>;
