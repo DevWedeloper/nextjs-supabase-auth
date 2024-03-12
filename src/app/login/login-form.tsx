@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -54,11 +53,6 @@ export default function LoginForm() {
               <FormControl>
                 <Input type='password' placeholder='Password' {...field} />
               </FormControl>
-              <FormDescription>
-                Password must be at least 8 characters and contain at least one
-                lowercase letter, one uppercase letter, one digit, and one
-                special character.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
