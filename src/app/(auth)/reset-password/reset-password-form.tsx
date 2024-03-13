@@ -12,9 +12,9 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { TResetPasswordSchema, resetPasswordSchema } from '@/lib/types';
+import { createClient } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { resetPassword } from './actions';
 
 export default function ResetPasswordForm() {
   const form = useForm<TResetPasswordSchema>({
@@ -27,7 +27,8 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit = async (values: TResetPasswordSchema) => {
-    const { error } = await resetPassword(values);
+    const supabase = createClient();
+    const { error } = await supabase.auth.updateUser(values);
 
     if (error) {
       console.log(error);
