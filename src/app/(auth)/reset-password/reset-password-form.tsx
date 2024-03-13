@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { TResetPasswordSchema, resetPasswordSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { resetPassword } from './actions';
 
 export default function ResetPasswordForm() {
   const form = useForm<TResetPasswordSchema>({
@@ -25,8 +26,16 @@ export default function ResetPasswordForm() {
     mode: 'onChange',
   });
 
-  const onSubmit = (values: TResetPasswordSchema) => {
-    console.log(values);
+  const onSubmit = async (values: TResetPasswordSchema) => {
+    const { error } = await resetPassword(values);
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (!error) {
+      console.log('No error!');
+    }
   };
 
   return (
