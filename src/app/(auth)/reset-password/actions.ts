@@ -1,8 +1,7 @@
 'use server';
 
 import { TResetPasswordSchema, resetPasswordSchema } from '@/lib/types';
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 
 export async function resetPassword(data: TResetPasswordSchema) {
   const result = resetPasswordSchema.safeParse(data);
@@ -14,7 +13,7 @@ export async function resetPassword(data: TResetPasswordSchema) {
     return { error: zodErrors };
   }
 
-  const supabase = createServerActionClient({ cookies });
+  const supabase = createClient();
   const { error } = await supabase.auth.updateUser(data);
   return { error: error ? { resetPasswordError: error.message } : null };
 }

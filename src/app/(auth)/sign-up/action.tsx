@@ -1,8 +1,7 @@
 'use server';
 
 import { TSignUpSchema, signUpSchema } from '@/lib/types';
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 
 export async function signUp(data: TSignUpSchema, url: string) {
   const result = signUpSchema.safeParse(data);
@@ -14,7 +13,7 @@ export async function signUp(data: TSignUpSchema, url: string) {
     return { error: zodErrors };
   }
 
-  const supabase = createServerActionClient({ cookies });
+  const supabase = createClient();
   const { error } = await supabase.auth.signUp({
     ...data,
     options: {

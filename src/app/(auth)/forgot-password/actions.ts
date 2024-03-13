@@ -1,8 +1,7 @@
 'use server';
 
 import { TForgotPasswordSchema, forgotPasswordSchema } from '@/lib/types';
-import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 
 export async function forgotPassword(data: TForgotPasswordSchema, url: string) {
   const result = forgotPasswordSchema.safeParse(data);
@@ -14,7 +13,7 @@ export async function forgotPassword(data: TForgotPasswordSchema, url: string) {
     return { error: zodErrors };
   }
 
-  const supabase = createServerActionClient({ cookies });
+  const supabase = createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
     redirectTo: `${url}/reset-password`,
   });
