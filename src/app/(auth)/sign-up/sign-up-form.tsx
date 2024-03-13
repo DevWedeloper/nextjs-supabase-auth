@@ -28,7 +28,7 @@ export default function SignUpForm() {
   });
 
   const onSubmit = async (values: TSignUpSchema) => {
-    const { error } = await signUp(values);
+    const { error } = await signUp(values, window.location.origin);
 
     if (error) {
       console.log(error);
