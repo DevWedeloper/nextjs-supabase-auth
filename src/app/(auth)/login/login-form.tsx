@@ -14,6 +14,7 @@ import { TLoginSchema, loginSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import { login } from './action';
 
 export default function LoginForm() {
   const form = useForm<TLoginSchema>({
@@ -25,8 +26,16 @@ export default function LoginForm() {
     mode: 'onChange',
   });
 
-  const onSubmit = (values: TLoginSchema) => {
-    console.log(values);
+  const onSubmit = async (values: TLoginSchema) => {
+    const { error } = await login(values);
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (!error) {
+      console.log('No error!');
+    }
   };
 
   return (
