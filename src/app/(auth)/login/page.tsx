@@ -1,21 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import LoginForm from './login-form';
 
 export default async function Login() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (user) {
-    redirect('/protected');
-  }
-
   return (
     <>
       <div className='space-y-4 rounded-lg border border-slate-500 p-4'>
