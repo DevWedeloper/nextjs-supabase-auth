@@ -11,18 +11,10 @@ export async function signUp(data: TSignUpSchema) {
     result.error.issues.forEach((issue) => {
       zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
     });
+    return { error: zodErrors };
   }
 
   const supabase = createServerActionClient({ cookies });
   const { error } = await supabase.auth.signUp(data);
-
-  const combinedError = error
-    ? { ...zodErrors, signUpError: error.message }
-    : zodErrors;
-
-  if (Object.keys(combinedError).length === 0 && !error) {
-    return { error: null };
-  }
-
-  return { error: combinedError };
+  return { error: error ? { signUpError: error.message } : null };
 }
