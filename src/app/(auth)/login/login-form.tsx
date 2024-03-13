@@ -27,7 +27,7 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (values: TLoginSchema) => {
-    const { error } = await login(values);
+    const error = await login(values);
 
     if (error) {
       console.log(error);
