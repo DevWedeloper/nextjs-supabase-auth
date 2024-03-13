@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { TForgotPasswordSchema, forgotPasswordSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { forgotPassword } from './actions';
 
 export default function ForgotPasswordForm() {
   const form = useForm<TForgotPasswordSchema>({
@@ -23,8 +24,16 @@ export default function ForgotPasswordForm() {
     mode: 'onChange',
   });
 
-  const onSubmit = (values: TForgotPasswordSchema) => {
-    console.log(values);
+  const onSubmit = async (values: TForgotPasswordSchema) => {
+    const { error } = await forgotPassword(values, window.location.origin);
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (!error) {
+      console.log('No error!');
+    }
   };
 
   return (
