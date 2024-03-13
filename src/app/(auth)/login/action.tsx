@@ -3,6 +3,7 @@
 import { TLoginSchema, loginSchema } from '@/lib/types';
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export async function login(data: TLoginSchema) {
   const result = loginSchema.safeParse(data);
@@ -16,5 +17,9 @@ export async function login(data: TLoginSchema) {
 
   const supabase = createServerActionClient({ cookies });
   const { error } = await supabase.auth.signInWithPassword(data);
-  return { error: error ? { signUpError: error.message } : null };
+  if (!error) {
+    redirect('/protected');
+  }
+
+  return { error: { signUpError: error.message } };
 }
