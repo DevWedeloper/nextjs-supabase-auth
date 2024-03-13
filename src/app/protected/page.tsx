@@ -1,15 +1,13 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 import SignOutButton from './sign-out-button';
 
 export default async function Protected() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  
+
   if (!user) {
     redirect('/login');
   }
