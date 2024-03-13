@@ -1,6 +1,19 @@
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import SignOutButton from './sign-out-button';
 
-export default function Protected() {
+export default async function Protected() {
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  
+  if (!user) {
+    redirect('/login');
+  }
+
   return (
     <div className='flex h-screen items-center justify-center p-4'>
       <div className='flex flex-col space-y-4'>
