@@ -2,6 +2,7 @@
 
 import { TLoginSchema, loginSchema } from '@/lib/types';
 import { createServerActionClient } from '@supabase/auth-helpers-nextjs';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -17,6 +18,9 @@ export async function login(data: TLoginSchema) {
 
   const supabase = createServerActionClient({ cookies });
   const { error } = await supabase.auth.signInWithPassword(data);
+
+  revalidatePath('/');
+
   if (!error) {
     redirect('/protected');
   }
