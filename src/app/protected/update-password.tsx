@@ -35,7 +35,7 @@ export default function UpdatePassword() {
   });
 
   const onSubmit = async (values: TUpdatePasswordSchema) => {
-    const { error } = await updatePassword(values.password);
+    const { error } = await updatePassword(values);
 
     if (error) {
       console.log(error);
