@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { TResetPasswordSchema, resetPasswordSchema } from '@/lib/types';
 import { createClient } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ReloadIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
 
 export default function ResetPasswordForm() {
@@ -82,7 +83,13 @@ export default function ResetPasswordForm() {
           )}
         />
         <div className='flex justify-center'>
-          <Button type='submit' disabled={!form.formState.isValid}>
+          <Button
+            type='submit'
+            disabled={!form.formState.isValid || form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
+            ) : null}
             Submit
           </Button>
         </div>

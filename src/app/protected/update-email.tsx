@@ -21,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { TUpdateEmailSchema, updateEmailSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ReloadIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
 import { updateEmail } from './actions';
 
@@ -75,7 +76,13 @@ export default function UpdateEmail() {
             />
           </CardContent>
           <CardFooter>
-            <Button type='submit' disabled={!form.formState.isValid}>
+            <Button
+              type='submit'
+              disabled={!form.formState.isValid || form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? (
+                <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
+              ) : null}
               Save changes
             </Button>
           </CardFooter>
