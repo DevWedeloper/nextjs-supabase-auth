@@ -21,7 +21,7 @@ import { Input } from '@/components/ui/input';
 import { TUpdateEmailSchema, updateEmailSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { updateEmail } from './action';
+import { updateEmail } from './actions';
 
 export default function UpdateEmail() {
   const form = useForm<TUpdateEmailSchema>({

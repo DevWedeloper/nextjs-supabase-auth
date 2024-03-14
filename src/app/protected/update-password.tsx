@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input';
 import { TUpdatePasswordSchema, updatePasswordSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { updatePassword } from './action';
+import { updatePassword } from './actions';
 
 export default function UpdatePassword() {
   const form = useForm<TUpdatePasswordSchema>({
