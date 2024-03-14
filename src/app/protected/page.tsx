@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import DeleteAccountButton from './delete-account-button';
 import SignOutButton from './sign-out-button';
 
 export default async function Protected() {
@@ -18,8 +19,9 @@ export default async function Protected() {
         <h1 className='text-center text-lg font-bold'>
           This route is protected!
         </h1>
-        <div className='flex justify-center'>
+        <div className='flex flex-col items-center justify-center gap-4'>
           <SignOutButton />
+          <DeleteAccountButton />
         </div>
       </div>
     </div>
