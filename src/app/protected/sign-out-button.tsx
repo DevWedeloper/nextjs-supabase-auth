@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { signOut } from './action';
+import { signOut } from './actions';
 
 export default function SignOutButton() {
   const handleClick = async () => {
