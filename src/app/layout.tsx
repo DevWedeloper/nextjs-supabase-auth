@@ -1,4 +1,6 @@
+import { ThemeToggle } from '@/components/theme-toggle';
 import type { Metadata } from 'next';
+import { ThemeProvider } from 'next-themes';
 import { Inter } from 'next/font/google';
 import { ToastOptions, Toaster } from 'react-hot-toast';
 import './globals.css';
@@ -20,10 +22,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
-        <Toaster position='top-center' toastOptions={toastOptions} />
-        {children}
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Toaster position='top-center' toastOptions={toastOptions} />
+          {children}
+          <div className='fixed bottom-32 right-8 sm:right-16'>
+            <ThemeToggle />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
