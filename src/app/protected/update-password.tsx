@@ -1,5 +1,6 @@
 'use client';
 
+import { toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,9 +22,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { TUpdatePasswordSchema, updatePasswordSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ReloadIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
 import { updatePassword } from './actions';
-import { toastSuccess } from '@/components/toasts';
 
 export default function UpdatePassword() {
   const form = useForm<TUpdatePasswordSchema>({
@@ -96,7 +97,13 @@ export default function UpdatePassword() {
             />
           </CardContent>
           <CardFooter>
-            <Button type='submit' disabled={!form.formState.isValid}>
+            <Button
+              type='submit'
+              disabled={!form.formState.isValid || form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? (
+                <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
+              ) : null}
               Save password
             </Button>
           </CardFooter>

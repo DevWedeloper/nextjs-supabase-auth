@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { TLoginSchema, loginSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ReloadIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { login } from './action';
@@ -71,7 +72,13 @@ export default function LoginForm() {
           <Link href='/forgot-password'>Forgot Password?</Link>
         </Button>
         <div className='flex justify-center'>
-          <Button type='submit' disabled={!form.formState.isValid}>
+          <Button
+            type='submit'
+            disabled={!form.formState.isValid || form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
+            ) : null}
             Submit
           </Button>
         </div>
