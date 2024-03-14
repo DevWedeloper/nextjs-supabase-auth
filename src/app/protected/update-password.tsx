@@ -9,12 +9,32 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { TUpdatePasswordSchema, updatePasswordSchema } from '@/lib/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 export default function UpdatePassword() {
-  const handleClick = async () => {
-    console.log('clicked');
+  const form = useForm<TUpdatePasswordSchema>({
+    resolver: zodResolver(updatePasswordSchema),
+    defaultValues: {
+      password: '',
+      confirmPassword: '',
+    },
+    mode: 'onChange',
+  });
+
+  const onSubmit = async (values: TUpdatePasswordSchema) => {
+    console.log(values);
   };
 
   return (
@@ -25,19 +45,52 @@ export default function UpdatePassword() {
           Change your password here. Click save when you&apos;re done.
         </CardDescription>
       </CardHeader>
-      <CardContent className='space-y-2'>
-        <div className='space-y-1'>
-          <Label htmlFor='new-password'>New password</Label>
-          <Input id='new-password' type='password' />
-        </div>
-        <div className='space-y-1'>
-          <Label htmlFor='confirm-password'>Confirm password</Label>
-          <Input id='confirm-password' type='password' />
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button onClick={handleClick}>Save password</Button>
-      </CardFooter>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <CardContent className='space-y-2'>
+            <FormField
+              control={form.control}
+              name='password'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type='password' placeholder='Password' {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Password must be at least 8 characters and contain at least
+                    one lowercase letter, one uppercase letter, one digit, and
+                    one special character.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='confirmPassword'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      type='password'
+                      placeholder='Confirm Password'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </CardContent>
+          <CardFooter>
+            <Button type='submit' disabled={!form.formState.isValid}>
+              Save password
+            </Button>
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 }
