@@ -23,6 +23,7 @@ import { TUpdatePasswordSchema, updatePasswordSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { updatePassword } from './actions';
+import { toastSuccess } from '@/components/toasts';
 
 export default function UpdatePassword() {
   const form = useForm<TUpdatePasswordSchema>({
@@ -42,7 +43,9 @@ export default function UpdatePassword() {
     }
 
     if (!error) {
-      console.log('No error!');
+      toastSuccess(
+        'Password successfully changed!',
+      );
       form.reset();
     }
   };

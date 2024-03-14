@@ -1,5 +1,6 @@
 'use client';
 
+import { toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -35,7 +36,10 @@ export default function ResetPasswordForm() {
     }
 
     if (!error) {
-      console.log('No error!');
+      toastSuccess(
+        'Your password has been successfully reset. You may now log in using your new credentials.',
+      );
+      form.reset();
     }
   };
 
