@@ -10,7 +10,7 @@ import { createAdminClient, createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export async function updateEmail(data: TUpdateEmailSchema) {
+export async function updateEmail(data: TUpdateEmailSchema, url: string) {
   const result = updateEmailSchema.safeParse(data);
   let zodErrors = {};
   if (!result.success) {
@@ -21,7 +21,9 @@ export async function updateEmail(data: TUpdateEmailSchema) {
   }
 
   const supabase = createClient();
-  const { error } = await supabase.auth.updateUser(data);
+  const { error } = await supabase.auth.updateUser(data, {
+    emailRedirectTo: `${url}/protected`,
+  });
 
   revalidatePath('/');
 
