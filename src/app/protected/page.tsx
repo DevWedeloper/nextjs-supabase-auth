@@ -15,7 +15,7 @@ export default async function Protected() {
 
   return (
     <div className='flex h-screen items-center justify-center p-4'>
-      <div className='flex flex-col space-y-4'>
+      <div className='flex flex-col gap-4'>
         <h1 className='text-center text-lg font-bold'>
           This route is protected!
         </h1>
