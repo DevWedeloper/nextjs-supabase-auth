@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input';
 import { TUpdateEmailSchema, updateEmailSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { updateEmail } from './action';
 
 export default function UpdateEmail() {
   const form = useForm<TUpdateEmailSchema>({
@@ -32,7 +33,15 @@ export default function UpdateEmail() {
   });
 
   const onSubmit = async (values: TUpdateEmailSchema) => {
-    console.log(values);
+    const { error } = await updateEmail(values.email);
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (!error) {
+      console.log('No error!');
+    }
   };
 
   return (

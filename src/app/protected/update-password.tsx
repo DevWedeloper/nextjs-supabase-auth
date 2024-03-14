@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { TUpdatePasswordSchema, updatePasswordSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { updatePassword } from './action';
 
 export default function UpdatePassword() {
   const form = useForm<TUpdatePasswordSchema>({
@@ -34,7 +35,15 @@ export default function UpdatePassword() {
   });
 
   const onSubmit = async (values: TUpdatePasswordSchema) => {
-    console.log(values);
+    const { error } = await updatePassword(values.password);
+
+    if (error) {
+      console.log(error);
+    }
+
+    if (!error) {
+      console.log('No error!');
+    }
   };
 
   return (
