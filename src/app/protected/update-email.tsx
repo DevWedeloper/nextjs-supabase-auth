@@ -33,7 +33,7 @@ export default function UpdateEmail() {
   });
 
   const onSubmit = async (values: TUpdateEmailSchema) => {
-    const { error } = await updateEmail(values);
+    const { error } = await updateEmail(values, window.location.origin);
 
     if (error) {
       console.log(error);
