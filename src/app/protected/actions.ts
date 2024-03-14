@@ -21,6 +21,14 @@ export async function updateEmail(data: TUpdateEmailSchema, url: string) {
   }
 
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user && data.email === user?.email) {
+    return { error: { updateEmailError: 'Email should be a new one.' } };
+  }
+
   const { error } = await supabase.auth.updateUser(data, {
     emailRedirectTo: `${url}/protected`,
   });
