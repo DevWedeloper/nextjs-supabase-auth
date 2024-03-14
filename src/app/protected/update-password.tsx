@@ -43,9 +43,7 @@ export default function UpdatePassword() {
     }
 
     if (!error) {
-      toastSuccess(
-        'Password successfully changed!',
-      );
+      toastSuccess('Password successfully changed!');
       form.reset();
     }
   };
