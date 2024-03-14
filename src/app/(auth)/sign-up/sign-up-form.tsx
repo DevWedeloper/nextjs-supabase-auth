@@ -1,5 +1,6 @@
 'use client';
 
+import { toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -35,7 +36,9 @@ export default function SignUpForm() {
     }
 
     if (!error) {
-      console.log('No error!');
+      toastSuccess(
+        'A confirmation link has been sent to your email. Kindly click to confirm.',
+      );
       form.reset();
     }
   };

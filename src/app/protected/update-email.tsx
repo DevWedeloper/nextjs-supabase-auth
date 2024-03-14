@@ -1,5 +1,6 @@
 'use client';
 
+import { toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -40,7 +41,9 @@ export default function UpdateEmail() {
     }
 
     if (!error) {
-      console.log('No error!');
+      toastSuccess(
+        'A confirmation link has been sent to your email. Kindly click to confirm.',
+      );
       form.reset();
     }
   };

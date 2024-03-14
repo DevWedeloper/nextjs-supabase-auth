@@ -1,5 +1,6 @@
 'use client';
 
+import { toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import { deleteAccount } from './actions';
 
@@ -9,6 +10,12 @@ export default function DeleteAccountButton() {
 
     if (error) {
       console.log(error);
+    }
+
+    if (!error) {
+      toastSuccess(
+        'Account successfully deleted! Thank you for using my app ❤️',
+      );
     }
   };
 
