@@ -33,9 +33,10 @@ export default function SignUpForm() {
     if (error) {
       console.log(error);
     }
-    
+
     if (!error) {
       console.log('No error!');
+      form.reset();
     }
   };
 

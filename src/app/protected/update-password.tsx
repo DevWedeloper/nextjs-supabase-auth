@@ -43,6 +43,7 @@ export default function UpdatePassword() {
 
     if (!error) {
       console.log('No error!');
+      form.reset();
     }
   };
 

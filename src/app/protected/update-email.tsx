@@ -41,6 +41,7 @@ export default function UpdateEmail() {
 
     if (!error) {
       console.log('No error!');
+      form.reset();
     }
   };
 
