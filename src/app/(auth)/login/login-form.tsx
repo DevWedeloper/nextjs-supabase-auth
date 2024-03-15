@@ -1,5 +1,6 @@
 'use client';
 
+import { toastError } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -31,11 +32,16 @@ export default function LoginForm() {
     const error = await login(values);
 
     if (error) {
-      console.log(error);
-    }
-
-    if (!error) {
-      console.log('No error!');
+      if ('email' in error.error) {
+        form.setError('email', { type: 'server', message: error.error.email });
+      }
+      if ('password' in error.error) {
+        form.setError('password', { type: 'server', message: error.error.password });
+      }
+      if ('loginError' in error.error) {
+        toastError(`${error.error.loginError}`);
+        form.setError('root', { type: 'server', message: error.error.loginError });
+      }
     }
   };
 

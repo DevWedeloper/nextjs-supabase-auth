@@ -5,3 +5,9 @@ export const toastSuccess = (message: string) => {
     className: '!bg-green-500 !text-white',
   });
 };
+
+export const toastError = (message: string) => {
+  return toast.error(message, {
+    className: '!bg-red-500 !text-white',
+  });
+};

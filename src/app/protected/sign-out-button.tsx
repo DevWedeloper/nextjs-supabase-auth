@@ -1,5 +1,6 @@
 'use client';
 
+import { toastError } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
@@ -14,7 +15,7 @@ export default function SignOutButton() {
     setIsLoading(false);
 
     if (error) {
-      console.log(error);
+      toastError(`${error}`);
     }
   };
 

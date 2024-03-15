@@ -1,6 +1,6 @@
 'use client';
 
-import { toastSuccess } from '@/components/toasts';
+import { toastError, toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export default function DeleteAccountButton() {
     setIsLoading(false);
 
     if (error) {
-      console.log(error);
+      toastError(`${error}`);
     }
 
     if (!error) {

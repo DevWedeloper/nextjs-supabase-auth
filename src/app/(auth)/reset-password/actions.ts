@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/server';
 
 export async function resetPassword(data: TResetPasswordSchema) {
   const result = resetPasswordSchema.safeParse(data);
-  let zodErrors = {};
+  let zodErrors: Partial<TResetPasswordSchema> = {};
   if (!result.success) {
     result.error.issues.forEach((issue) => {
       zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
