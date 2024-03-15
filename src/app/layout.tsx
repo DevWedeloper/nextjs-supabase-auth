@@ -32,7 +32,7 @@ export default function RootLayout({
         >
           <Toaster position='top-center' toastOptions={toastOptions} />
           {children}
-          <div className='fixed bottom-32 right-8 sm:right-16'>
+          <div className='fixed bottom-16 right-8 sm:right-16'>
             <ThemeToggle />
           </div>
         </ThemeProvider>
