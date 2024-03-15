@@ -17,7 +17,7 @@ export async function signUp(data: TSignUpSchema, url: string) {
   const { error } = await supabase.auth.signUp({
     ...data,
     options: {
-      emailRedirectTo: `${url}/protected`,
+      emailRedirectTo: `${url}/auth/confirm`,
     },
   });
   return { error: error ? { signUpError: error.message } : null };
