@@ -171,6 +171,56 @@ const FormMessage = React.forwardRef<
 });
 FormMessage.displayName = 'FormMessage';
 
+const FormMultipleMessage = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => {
+  const { error, formMessageId } = useFormField();
+
+  if (!error) {
+    return null;
+  }
+
+  if (!error.types) {
+    return <p
+      ref={ref}
+      id={formMessageId}
+      className={cn(
+        'text-[0.8rem] font-medium text-red-500 dark:text-red-900',
+        className,
+      )}
+      {...props}
+    >
+      {error.message}
+    </p>;
+  }
+
+  const errorMessages = Object.values(error.types).flatMap((value) => {
+    if (typeof value === 'string') {
+      return [value]; // If it's a string, simply return it
+    } else if (Array.isArray(value)) {
+      return value; // If it's an array, return its elements
+    } else {
+      return []; // If it's neither string nor array, return an empty array
+    }
+  });
+
+  return errorMessages.map((message, index) => (
+    <p
+      key={index}
+      ref={ref}
+      className={cn(
+        'text-[0.8rem] font-medium text-red-500 dark:text-red-900',
+        className,
+      )}
+      {...props}
+    >
+      {message}
+    </p>
+  ));
+});
+FormMultipleMessage.displayName = 'FormMultipleMessage';
+
 export {
   Form,
   FormControl,
@@ -179,5 +229,6 @@ export {
   FormItem,
   FormLabel,
   FormMessage,
+  FormMultipleMessage,
   useFormField,
 };
