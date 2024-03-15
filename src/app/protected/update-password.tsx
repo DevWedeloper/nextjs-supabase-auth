@@ -1,6 +1,6 @@
 'use client';
 
-import { toastSuccess } from '@/components/toasts';
+import { toastError, toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -40,7 +40,28 @@ export default function UpdatePassword() {
     const { error } = await updatePassword(values);
 
     if (error) {
-      console.log(error);
+      if ('password' in error) {
+        form.setError('password', { type: 'server', message: error.password });
+      }
+      if ('confirmPassword' in error) {
+        form.setError('confirmPassword', {
+          type: 'server',
+          message: error.confirmPassword,
+        });
+      }
+      if (
+        'updatePasswordError' in error &&
+        (error.updatePasswordError ===
+          'New password should be different from the old password.' ||
+          error.updatePasswordError.includes('Password should be at least'))
+      ) {
+        form.setError('password', {
+          type: 'server',
+          message: error.updatePasswordError,
+        });
+      } else if ('updatePasswordError' in error) {
+        toastError(`${error.updatePasswordError}`);
+      }
     }
 
     if (!error) {

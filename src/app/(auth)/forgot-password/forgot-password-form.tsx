@@ -1,6 +1,6 @@
 'use client';
 
-import { toastSuccess } from '@/components/toasts';
+import { toastError, toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -30,7 +30,12 @@ export default function ForgotPasswordForm() {
     const { error } = await forgotPassword(values, window.location.origin);
 
     if (error) {
-      console.log(error);
+      if ('email' in error) {
+        form.setError('email', { type: 'server', message: error.email });
+      }
+      if ('forgotPasswordError' in error) {
+        toastError(`${error.forgotPasswordError}`);
+      }
     }
 
     if (!error) {

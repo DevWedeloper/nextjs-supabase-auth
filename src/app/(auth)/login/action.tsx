@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 
 export async function login(data: TLoginSchema) {
   const result = loginSchema.safeParse(data);
-  let zodErrors = {};
+  let zodErrors: Partial<TLoginSchema> = {};
   if (!result.success) {
     result.error.issues.forEach((issue) => {
       zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
@@ -24,5 +24,5 @@ export async function login(data: TLoginSchema) {
     redirect('/protected');
   }
 
-  return { error: { signUpError: error.message } };
+  return { error: { loginError: error.message } };
 }

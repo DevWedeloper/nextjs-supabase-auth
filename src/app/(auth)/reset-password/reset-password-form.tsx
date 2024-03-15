@@ -1,6 +1,6 @@
 'use client';
 
-import { toastSuccess } from '@/components/toasts';
+import { toastError, toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -33,7 +33,15 @@ export default function ResetPasswordForm() {
     const { error } = await supabase.auth.updateUser(values);
 
     if (error) {
-      console.log(error);
+      if (
+        error.message ===
+          'New password should be different from the old password.' ||
+        error.message.includes('Password should be at least')
+      ) {
+        form.setError('password', { type: 'server', message: error.message });
+      } else {
+        toastError(`${error.message}`);
+      }
     }
 
     if (!error) {

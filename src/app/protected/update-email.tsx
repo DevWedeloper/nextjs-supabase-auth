@@ -1,6 +1,6 @@
 'use client';
 
-import { toastSuccess } from '@/components/toasts';
+import { toastError, toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -38,7 +38,20 @@ export default function UpdateEmail() {
     const { error } = await updateEmail(values, window.location.origin);
 
     if (error) {
-      console.log(error);
+      if ('email' in error) {
+        form.setError('email', { type: 'server', message: error.email });
+      }
+      if (
+        'updateEmailError' in error &&
+        error.updateEmailError === 'Email should be a new one.'
+      ) {
+        form.setError('email', {
+          type: 'server',
+          message: error.updateEmailError,
+        });
+      } else if ('updateEmailError' in error) {
+        toastError(`${error.updateEmailError}`);
+      }
     }
 
     if (!error) {

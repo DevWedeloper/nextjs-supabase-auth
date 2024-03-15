@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation';
 
 export async function updateEmail(data: TUpdateEmailSchema, url: string) {
   const result = updateEmailSchema.safeParse(data);
-  let zodErrors = {};
+  let zodErrors: Partial<TUpdateEmailSchema> = {};
   if (!result.success) {
     result.error.issues.forEach((issue) => {
       zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
@@ -40,7 +40,7 @@ export async function updateEmail(data: TUpdateEmailSchema, url: string) {
 
 export async function updatePassword(data: TUpdatePasswordSchema) {
   const result = updatePasswordSchema.safeParse(data);
-  let zodErrors = {};
+  let zodErrors: Partial<TUpdatePasswordSchema> = {};
   if (!result.success) {
     result.error.issues.forEach((issue) => {
       zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };

@@ -1,6 +1,6 @@
 'use client';
 
-import { toastSuccess } from '@/components/toasts';
+import { toastError, toastSuccess } from '@/components/toasts';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -33,7 +33,22 @@ export default function SignUpForm() {
     const { error } = await signUp(values, window.location.origin);
 
     if (error) {
-      console.log(error);
+      if ('email' in error) {
+        form.setError('email', { type: 'server', message: error.email });
+      }
+      if ('password' in error) {
+        form.setError('password', { type: 'server', message: error.password });
+      }
+      if ('confirmPassword' in error) {
+        form.setError('confirmPassword', {
+          type: 'server',
+          message: error.confirmPassword,
+        });
+      }
+      if ('signUpError' in error) {
+        toastError(`${error.signUpError}`);
+        form.setError('root', { type: 'server', message: error.signUpError });
+      }
     }
 
     if (!error) {
