@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import Link from 'next/link';
 import SignUpForm from './sign-up-form';
 
 export default function SignUp() {
   return (
     <>
-      <div className='space-y-4 rounded-lg border border-slate-500 p-4'>
+      <Card className='space-y-4 rounded-lg border p-4'>
         <h1 className='text-center text-lg font-bold'>Sign-Up</h1>
         <SignUpForm />
-      </div>
+      </Card>
       <p className='self-end'>
         Have an account?
         <Button variant='link' asChild className='ml-2 p-0'>
