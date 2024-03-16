@@ -22,9 +22,9 @@ export default async function ResetPassword() {
         <ResetPasswordForm />
       </Card>
       <p className='self-end'>
-        Have an account?
+        Go back to
         <Button variant='link' asChild className='ml-2 p-0'>
-          <Link href='/login'>Login</Link>
+          <Link href='/protected'>Home</Link>
         </Button>
       </p>
     </>
