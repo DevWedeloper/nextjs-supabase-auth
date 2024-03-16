@@ -1,19 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { createClient } from '@/utils/supabase/server';
+import { getUser } from '@/utils/get-user/actions';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import ResetPasswordForm from './reset-password-form';
 
 export default async function ResetPassword() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect('/login');
-  }
+  if (!(await getUser())) redirect('/login');
 
   return (
     <>
