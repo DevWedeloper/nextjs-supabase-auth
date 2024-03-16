@@ -1,3 +1,4 @@
+import MagicLinkError from '@/components/magic-link-error';
 import { ThemeToggle } from '@/components/theme-toggle';
 import type { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
@@ -35,6 +36,7 @@ export default function RootLayout({
           <div className='fixed bottom-16 right-8 sm:right-16'>
             <ThemeToggle />
           </div>
+          <MagicLinkError />
         </ThemeProvider>
       </body>
     </html>
