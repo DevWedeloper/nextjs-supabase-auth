@@ -42,6 +42,7 @@ export default function ForgotPasswordForm() {
       toastSuccess(
         'A confirmation link has been sent to your email. Kindly click to confirm.',
       );
+      form.reset();
     }
   };
 
