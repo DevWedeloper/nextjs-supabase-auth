@@ -1,9 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import ResetPasswordForm from './reset-password-form';
 
-export default function ResetPassword() {
+export default async function ResetPassword() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/login');
+  }
+
   return (
     <>
       <Card className='space-y-4 rounded-lg border p-4'>

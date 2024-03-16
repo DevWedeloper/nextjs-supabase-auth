@@ -15,7 +15,7 @@ export async function forgotPassword(data: TForgotPasswordSchema, url: string) {
 
   const supabase = createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-    redirectTo: `${url}/reset-password`,
+    redirectTo: `${url}/auth/confirm?next=reset-password`,
   });
   return { error: error ? { forgotPasswordError: error.message } : null };
 }

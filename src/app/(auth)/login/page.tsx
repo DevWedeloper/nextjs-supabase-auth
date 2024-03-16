@@ -1,9 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import LoginForm from './login-form';
 
 export default async function Login() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect('/protected');
+  }
+
   return (
     <>
       <Card className='space-y-4 rounded-lg border p-4'>
