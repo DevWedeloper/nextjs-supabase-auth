@@ -13,10 +13,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { TResetPasswordSchema, resetPasswordSchema } from '@/lib/types';
-import { createClient } from '@/utils/supabase/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
+import { resetPassword } from './actions';
 
 export default function ResetPasswordForm() {
   const form = useForm<TResetPasswordSchema>({
@@ -29,18 +29,30 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit = async (values: TResetPasswordSchema) => {
-    const supabase = createClient();
-    const { error } = await supabase.auth.updateUser(values);
+    const { error } = await resetPassword(values);
 
     if (error) {
+      if ('password' in error) {
+        form.setError('password', { type: 'server', message: error.password });
+      }
+      if ('confirmPassword' in error) {
+        form.setError('confirmPassword', {
+          type: 'server',
+          message: error.confirmPassword,
+        });
+      }
       if (
-        error.message ===
+        'resetPasswordError' in error &&
+        (error.resetPasswordError ===
           'New password should be different from the old password.' ||
-        error.message.includes('Password should be at least')
+          error.resetPasswordError.includes('Password should be at least'))
       ) {
-        form.setError('password', { type: 'server', message: error.message });
-      } else {
-        toastError(`${error.message}`);
+        form.setError('password', {
+          type: 'server',
+          message: error.resetPasswordError,
+        });
+      } else if ('resetPasswordError' in error) {
+        toastError(`${error.resetPasswordError}`);
       }
     }
 
