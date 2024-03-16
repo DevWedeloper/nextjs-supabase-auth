@@ -21,7 +21,7 @@ export default async function ResetPassword() {
       </Card>
       <p className='self-end'>
         Go back to
-        <Button variant='link' asChild className='ml-2 p-0'>
+        <Button variant='link' asChild className='ml-2 p-0 !text-blue-600'>
           <Link href='/protected'>Home</Link>
         </Button>
       </p>

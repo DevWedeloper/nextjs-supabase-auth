@@ -21,7 +21,7 @@ export default async function ForgotPassword() {
       </Card>
       <p className='self-end'>
         Have an account?
-        <Button variant='link' asChild className='ml-2 p-0'>
+        <Button variant='link' asChild className='ml-2 p-0 !text-blue-600'>
           <Link href='/login'>Login</Link>
         </Button>
       </p>

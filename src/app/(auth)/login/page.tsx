@@ -21,7 +21,7 @@ export default async function Login() {
       </Card>
       <p className='self-end'>
         Don&apos;t have an account?
-        <Button variant='link' asChild className='ml-2 p-0'>
+        <Button variant='link' asChild className='ml-2 p-0 !text-blue-600'>
           <Link href='/sign-up'>Sign-Up</Link>
         </Button>
       </p>
