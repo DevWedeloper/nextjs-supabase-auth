@@ -15,9 +15,9 @@ export default async function Protected() {
   return (
     <div className='flex h-screen items-center justify-center p-4'>
       <div className='flex w-[400px] flex-col gap-4'>
-        <h1 className='text-center text-lg font-bold'>
+        <h2 className='text-center text-lg font-bold'>
           This route is protected!
-        </h1>
+        </h2>
         <UpdateCredentialsTab />
         <div className='flex flex-col items-center justify-center gap-4'>
           <SignOutButton />
