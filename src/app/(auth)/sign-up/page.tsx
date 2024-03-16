@@ -1,9 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { getUser } from '@/utils/get-user/actions';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import SignUpForm from './sign-up-form';
+
+export const metadata: Metadata = {
+  title: 'Sign-Up',
+};
 
 export default async function SignUp() {
   if (await getUser()) redirect('/protected');

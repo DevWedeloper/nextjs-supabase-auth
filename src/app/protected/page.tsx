@@ -1,8 +1,13 @@
 import { getUser } from '@/utils/get-user/actions';
+import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import DeleteAccountButton from './delete-account-button';
 import SignOutButton from './sign-out-button';
 import { UpdateCredentialsTab } from './update-credentials-tab';
+
+export const metadata: Metadata = {
+  title: 'Protected',
+};
 
 export default async function Protected() {
   if (!(await getUser())) redirect('/login');
