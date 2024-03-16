@@ -10,6 +10,8 @@ export default function DeleteAccountButton() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
+    if (!confirm('Are you sure you want to delete your account?')) return;
+    
     setIsLoading(true);
     const error = await deleteAccount();
     setIsLoading(false);
