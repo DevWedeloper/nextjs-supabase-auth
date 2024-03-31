@@ -93,9 +93,9 @@ export default function UpdateEmail() {
               type='submit'
               disabled={!form.formState.isValid || form.formState.isSubmitting}
             >
-              {form.formState.isSubmitting ? (
+              {form.formState.isSubmitting && (
                 <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
-              ) : null}
+              )}
               Save changes
             </Button>
           </CardFooter>

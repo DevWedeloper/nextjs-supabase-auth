@@ -11,7 +11,7 @@ export default function DeleteAccountButton() {
 
   const handleClick = async () => {
     if (!confirm('Are you sure you want to delete your account?')) return;
-    
+
     setIsLoading(true);
     const error = await deleteAccount();
     setIsLoading(false);
@@ -34,7 +34,7 @@ export default function DeleteAccountButton() {
       disabled={isLoading}
       className='w-fit'
     >
-      {isLoading ? <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> : null}
+      {isLoading && <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />}
       Delete Account
     </Button>
   );

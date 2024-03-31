@@ -36,11 +36,17 @@ export default function LoginForm() {
         form.setError('email', { type: 'server', message: error.error.email });
       }
       if ('password' in error.error) {
-        form.setError('password', { type: 'server', message: error.error.password });
+        form.setError('password', {
+          type: 'server',
+          message: error.error.password,
+        });
       }
       if ('loginError' in error.error) {
         toastError(`${error.error.loginError}`);
-        form.setError('root', { type: 'server', message: error.error.loginError });
+        form.setError('root', {
+          type: 'server',
+          message: error.error.loginError,
+        });
       }
     }
   };
@@ -82,9 +88,9 @@ export default function LoginForm() {
             type='submit'
             disabled={!form.formState.isValid || form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? (
+            {form.formState.isSubmitting && (
               <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />
-            ) : null}
+            )}
             Submit
           </Button>
         </div>

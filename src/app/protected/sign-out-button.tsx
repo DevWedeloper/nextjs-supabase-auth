@@ -21,7 +21,7 @@ export default function SignOutButton() {
 
   return (
     <Button onClick={handleClick} disabled={isLoading} className='w-fit'>
-      {isLoading ? <ReloadIcon className='mr-2 h-4 w-4 animate-spin' /> : null}
+      {isLoading && <ReloadIcon className='mr-2 h-4 w-4 animate-spin' />}
       Sign-Out
     </Button>
   );
