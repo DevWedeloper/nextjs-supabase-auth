@@ -12,10 +12,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { TSignUpSchema, signUpSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { useForm } from 'react-hook-form';
+import GoogleButton from '../google-button';
 import { signUp } from './action';
 
 export default function SignUpForm() {
@@ -120,6 +122,10 @@ export default function SignUpForm() {
             )}
             Submit
           </Button>
+        </div>
+        <Separator />
+        <div className='flex justify-center'>
+          <GoogleButton text='signup_with' />
         </div>
       </form>
     </Form>
