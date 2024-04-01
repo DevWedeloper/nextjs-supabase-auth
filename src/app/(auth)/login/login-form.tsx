@@ -11,11 +11,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
 import { TLoginSchema, loginSchema } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
+import GoogleButton from '../google-button';
 import { login } from './action';
 
 export default function LoginForm() {
@@ -93,6 +95,10 @@ export default function LoginForm() {
             )}
             Submit
           </Button>
+        </div>
+        <Separator />
+        <div className='flex justify-center'>
+          <GoogleButton text='signin_with' />
         </div>
       </form>
     </Form>
