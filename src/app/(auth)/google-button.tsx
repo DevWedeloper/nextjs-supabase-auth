@@ -1,9 +1,10 @@
 'use client';
 
 import { toastError } from '@/components/toasts';
+import { useGoogleScriptLoadedStore } from '@/store/google-script-loaded';
 import { useTheme } from 'next-themes';
 import Script from 'next/script';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { handleGoogleAuth } from './actions';
 
 export default function GoogleButton({
@@ -12,10 +13,10 @@ export default function GoogleButton({
   text: 'signup_with' | 'signin_with';
 }) {
   const { resolvedTheme } = useTheme();
-  const [windowLoad, setWindowLoad] = useState(false);
+  const { scriptLoaded, setScriptLoaded } = useGoogleScriptLoadedStore();
 
   useEffect(() => {
-    if (windowLoad) {
+    if (scriptLoaded) {
       google.accounts.id.initialize({
         client_id: process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID!,
         callback: (response) => {
@@ -38,29 +39,16 @@ export default function GoogleButton({
       });
       google.accounts.id.prompt();
     }
-  }, [text, resolvedTheme, windowLoad]);
-
-  useEffect(() => {
-    if (document.readyState !== 'complete') {
-      const handler = () => {
-        setWindowLoad(true);
-      };
-      window.addEventListener('load', handler);
-
-      return () => {
-        window.removeEventListener('load', handler);
-      };
-    } else {
-      const timeout = window.setTimeout(() => {
-        setWindowLoad(true);
-      }, 0);
-      return () => window.clearTimeout(timeout);
-    }
-  }, []);
+  }, [text, resolvedTheme, scriptLoaded]);
 
   return (
     <>
-      <Script src='https://accounts.google.com/gsi/client' async defer></Script>
+      <Script
+        src='https://accounts.google.com/gsi/client'
+        async
+        defer
+        onLoad={() => setScriptLoaded(true)}
+      ></Script>
       <div id='google-btn' className='[color-scheme:auto]'></div>
     </>
   );
