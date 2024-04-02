@@ -1,10 +1,9 @@
 'use client';
 
 import { toastError } from '@/components/toasts';
-import { useGoogleScriptLoadedStore } from '@/store/google-script-loaded';
 import { useTheme } from 'next-themes';
 import Script from 'next/script';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { handleGoogleAuth } from './actions';
 
 export default function GoogleButton({
@@ -13,10 +12,10 @@ export default function GoogleButton({
   text: 'signup_with' | 'signin_with';
 }) {
   const { resolvedTheme } = useTheme();
-  const { scriptLoaded, setScriptLoaded } = useGoogleScriptLoadedStore();
+  const [windowLoaded, setWindowLoaded] = useState(false);
 
   useEffect(() => {
-    if (scriptLoaded) {
+    if (windowLoaded) {
       google.accounts.id.initialize({
         client_id: process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID!,
         callback: (response) => {
@@ -39,7 +38,7 @@ export default function GoogleButton({
       });
       google.accounts.id.prompt();
     }
-  }, [text, resolvedTheme, scriptLoaded]);
+  }, [text, resolvedTheme, windowLoaded]);
 
   return (
     <>
@@ -47,7 +46,7 @@ export default function GoogleButton({
         src='https://accounts.google.com/gsi/client'
         async
         defer
-        onLoad={() => setScriptLoaded(true)}
+        onReady={() => setWindowLoaded(true)}
       ></Script>
       <div id='google-btn' className='[color-scheme:auto]'></div>
     </>
